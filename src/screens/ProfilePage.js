@@ -76,7 +76,7 @@ function ProfilePage(props) {
       setLoading(false)
       Alert.alert(
         "Success",
-        "My Alert Msg",
+        "Profile updated successfully",
         [
           {
             text: "Ok",

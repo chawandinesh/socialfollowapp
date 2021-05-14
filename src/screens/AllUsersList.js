@@ -77,7 +77,7 @@ const Details = props => {
         style={styles.item}
         onPress={() => props.navigation.navigate('UserProfile', {data: item})}>
         {item.image.length ? (
-          <Image style={{height: 105, width: 115}} source={{uri: item.image}} />
+          <Image style={{height: 105, width: 115, borderRadius: 20}} source={{uri: item.image}} />
         ) : (
           getImage(item.gender)
         )}
