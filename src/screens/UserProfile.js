@@ -6,6 +6,7 @@ import {
   View,
   Dimensions,
   Text,
+  Image,
   TouchableOpacity,
   TextInput,
 } from 'react-native';
@@ -256,7 +257,7 @@ function UserProfile(props) {
           ) : (
             <Image
               source={{uri: data.image}}
-              style={{width: width * 0.45, height: height * 0.2}}
+              style={{width: width * 0.45, height: height * 0.2,  borderRadius: 100}}
             />
           )}
         </View>

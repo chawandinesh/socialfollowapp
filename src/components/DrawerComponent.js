@@ -38,7 +38,7 @@ export default function DrawerContent(props) {
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContainer}>
         <View style={styles.profileImageContainer}>
-          {image === null ? (
+          {loggedInUser.image === "" ? (
             <FontAwesome5 name="user-circle" size={height * 0.1} />
           ) : (
             <Image
@@ -47,14 +47,14 @@ export default function DrawerContent(props) {
                 height: height * 0.16,
                 borderRadius: height * 0.1,
               }}
-              source={{uri: image}}
+              source={{uri: loggedInUser.image}}
             />
           )}
         </View>
         <View style={styles.drawerNavigationContainer}>
           <View style={styles.drawerItemsContainer}>
-            <View>
-              <Text>{loggedInUser.userName}</Text>
+            <View style={{borderWidth:4,width:'auto', borderRadius: height * 0.03, minWidth: width * 0.4}}>
+              <Text style={{fontSize: height * 0.03, fontWeight:'bold', textAlign:'center'}}>{loggedInUser.userName}</Text>
             </View>
             <TouchableOpacity
               style={{
@@ -76,7 +76,7 @@ export default function DrawerContent(props) {
                 borderLeftWidth: 2,
               }}
               onPress={() => {
-                props.navigation.navigate('ProfileScreen');
+                props.navigation.navigate('Profile');
               }}>
               <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>Profile</Text>
             </TouchableOpacity>
@@ -100,8 +100,7 @@ export default function DrawerContent(props) {
                 borderLeftWidth: 2,
               }}
               onPress={() => {
-                props.navigation.navigate('AllDetailsScreen');
-                setActive('Categories');
+                props.navigation.navigate('MyRequests');
               }}>
               <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>Users requests</Text>
             </TouchableOpacity>
@@ -127,7 +126,6 @@ export default function DrawerContent(props) {
               }}
               onPress={() => {
                 props.navigation.navigate('AboutUs');
-                setActive('Categories');
               }}>
               <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>AboutUs</Text>
             </TouchableOpacity>
@@ -152,7 +150,6 @@ export default function DrawerContent(props) {
               }}
               onPress={() => {
                 props.navigation.navigate('RateUs');
-                setActive('Categories');
               }}>
               <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>Rate Us</Text>
             </TouchableOpacity>
@@ -184,7 +181,7 @@ const styles = StyleSheet.create({
   },
   drawerItemsContainer: {
     width: width * 0.7,
-    height: height * 0.3,
+    height: height * 0.4,
     alignItems: 'center',
     justifyContent: 'space-around',
   },

@@ -86,6 +86,7 @@ export default function Routes() {
           <Stack.Screen name="HomeDrawer" component={HomeDrawer} />
           <Stack.Screen name="MyRequests" component={MyRequests} />
           <Stack.Screen name="UserProfile" component={UserProfile} />
+          <Stack.Screen name="Profile" component={ProfilePage}/>
           {/* <Stack.Screen name="UserProfile" component={ProfilePage} /> */}
         </Stack.Navigator>
       </NavigationContainer>

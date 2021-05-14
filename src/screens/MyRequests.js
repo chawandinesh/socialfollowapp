@@ -47,11 +47,10 @@ const DATA = [
 ];
 
 const AllDetails = props => {
-  const [filterUserType, setFilterUserType] = useState('Approach');
+  const [filterUserType, setFilterUserType] = useState('ShortListed');
   const [users, setUsers] = useState([]);
   const [profileInfo, setProfileInfo] = useState({});
   console.log(profileInfo, 'profileinfo');
-  // const profileInfo = state.hasOwnProperty('profileInfo') && state.profileInfo;
   const getConfirm = e => {
     if (e == filterUserType) {
       return true;
@@ -70,32 +69,45 @@ const AllDetails = props => {
   };
 
   const getUsers = () => {
+
+
+    // console.log(profileInfo.userActions.likes, users.map((e) => e.id))
     switch (filterUserType) {
-      case 'AllUsers':
-        return users;
       case 'ShortListed':
-        return users.filter(
-          e => profileInfo && profileInfo.likes.includes(e.id),
-        );
+        return users.filter((e) => profileInfo.userActions.likes.includes(e.id))
+        // return profileInfo && users.filter((e) => e.userActions )
+        // return users.filter((e) =>profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.likes.include(e.id))
+        // return users.filter(
+        //   e => profileInfo && profileInfo.likes.includes(e.id),
+        // );
       case 'Approach':
-        return users.filter(
-          e => profileInfo && profileInfo.approach.includes(e.id),
-        );
+        return users.filter((e) => profileInfo.userActions.approach.includes(e.id))
+
+        // return users.filter((e) => profileInfo.userActions.likes.includes(e.id))
+
+        // return users.filter((e) => profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.approach.include(e.id))
+
+        // return users.filter(
+        //   e => profileInfo && profileInfo.approach.includes(e.id),
+        // );
       case 'Rejected':
-        return users.filter(
-          e => profileInfo && profileInfo.disLikes.includes(e.id),
-        );
+        // return users.filter((e) => profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.disLikes.include(e.id))
+        return users.filter((e) => profileInfo.userActions.disLikes.includes(e.id))
+
+        // return users.filter(
+        //   e => profileInfo && profileInfo.disLikes.includes(e.id),
+        // );
       default:
         return [];
     }
   };
 
+  console.log(users,profileInfo,'users...')
   React.useEffect(() => {
     firebaseFireStore()
       .collection('users')
       .doc(firebaeAuth().currentUser.uid)
-      .get()
-      .then(res => {
+      .onSnapshot(res => {
         setProfileInfo({...res.data(), id: res.id});
       });
     firebaseFireStore()
@@ -132,7 +144,7 @@ const AllDetails = props => {
           ) : (
             <Image
               style={{height: 105, width: 115}}
-              source={item.image === '' ? null : item.image}
+              source={item.image === '' ? null : {uri: item.image}}
             />
           )}
           <View style={styles.viewType}>
@@ -157,41 +169,29 @@ const AllDetails = props => {
           width: width * 1,
           height: height * 0.06,
           alignItems: 'center',
+
           justifyContent: 'space-between',
           flexDirection: 'row',
         }}>
-        <TouchableOpacity
-          onPress={() => setFilterUserType('AllUsers')}
-          style={{
-            height: height * 0.08,
-            width: width * 0.5,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: getConfirm('AllUsers') ? '#fff' : null,
-            borderRadius: getConfirm('AllUsers') ? height * 0.05 : 0,
-          }}>
-          <Text
-            style={{
-              textAlign: 'center',
-              fontSize: height * 0.03,
-              fontWeight: 'bold',
-              color: 'black',
-            }}>
-            All Users{' '}
-            {getConfirm('AllUsers') ? (
-              <AntIcon name="check" style={{fontSize: height * 0.03}} />
-            ) : null}
-          </Text>
-        </TouchableOpacity>
+        <View>
+              <TouchableOpacity
+                style={{justifyContent: 'center', padding: 5}}
+                onPress={() => props.navigation.goBack()}>
+                <AntIcon
+                  name="arrowleft"
+                  style={{fontSize: height * 0.05, color: 'black'}}
+                />
+              </TouchableOpacity>
+            </View>
         <View>
           <TouchableOpacity
             style={{justifyContent: 'center', padding: 5}}
             onPress={() => props.navigation.navigate('Profile')}>
-            {false ? (
+            {!profileInfo.image ? (
               <AntIcon name="user" style={{fontSize: height * 0.03}} />
             ) : (
               <Image
-                source={require('../assets/bg1.jpg')}
+                source={{uri: profileInfo.image}}
                 style={{
                   height: height * 0.05,
                   borderRadius: height * 0.05,
