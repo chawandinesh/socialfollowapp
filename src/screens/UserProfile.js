@@ -41,7 +41,7 @@ function UserProfile(props) {
           userActions: {
             ...user.userActions,
             likes: [...user.userActions.likes, item.id],
-            disLikes: user.userActions.likes.filter(e => e !== item.id),
+            disLikes: user.userActions.disLikes.filter(e => e !== item.id),
           },
         });
 
@@ -85,7 +85,7 @@ function UserProfile(props) {
           userActions: {
             ...user.userActions,
             disLikes: [...user.userActions.disLikes, item.id],
-            likes: user.userActions.disLikes.filter(e => e !== item.id),
+            likes: user.userActions.likes.filter(e => e !== item.id),
           },
         });
 
