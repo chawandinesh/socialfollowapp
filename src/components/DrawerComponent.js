@@ -167,10 +167,10 @@ export default function DrawerContent(props) {
 }
 
 const styles = StyleSheet.create({
-  drawerContainer: { backgroundColor:'#fdd', height: height * 0.96},
+  drawerContainer: { backgroundColor:'#fdd', height: height},
   profileImageContainer: {
-    height: height * 0.14,
-    marginBottom: 20,
+    height: height * 0.2,
+    // marginBottom: 20,
     width: width * 0.7,
     justifyContent: 'center',
     alignItems: 'center',
