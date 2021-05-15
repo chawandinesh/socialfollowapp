@@ -10,6 +10,7 @@ import UserProfile from '../screens/UserProfile';
 import DrawerContent from '../components/DrawerComponent';
 import ProfilePage from '../screens/ProfilePage';
 import AllUsersList from '../screens/AllUsersList';
+import ReceivedRequests from '../screens/ReceivedRequests'
 import MyRequests from '../screens/MyRequests';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {DatingAppContext} from '../context/Context';
@@ -85,6 +86,7 @@ export default function Routes() {
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="HomeDrawer" component={HomeDrawer} />
           <Stack.Screen name="MyRequests" component={MyRequests} />
+          <Stack.Screen name="ReceivedRequests" component={ReceivedRequests} />
           <Stack.Screen name="UserProfile" component={UserProfile} />
           <Stack.Screen name="Profile" component={ProfilePage}/>
           {/* <Stack.Screen name="UserProfile" component={ProfilePage} /> */}

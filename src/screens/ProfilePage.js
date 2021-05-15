@@ -319,7 +319,8 @@ function ProfilePage(props) {
               alignItems: 'center',
               alignSelf: 'center',
             }}>
-            <View
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ReceivedRequests', {data: "Approach"})}
               style={{
                 marginLeft: 2,
                 width: width * 0.32,
@@ -342,8 +343,9 @@ function ProfilePage(props) {
                 }}>
                 Approach
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ReceivedRequests', {data: "Shortlist"})}
               style={{
                 marginLeft: 2,
                 width: width * 0.32,
@@ -366,8 +368,9 @@ function ProfilePage(props) {
                 }}>
                 Shortlist
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('ReceivedRequests', {data: "Rejected"})}
               style={{
                 marginLeft: 2,
                 width: width * 0.32,
@@ -390,7 +393,7 @@ function ProfilePage(props) {
                 }}>
                 Rejected
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -408,7 +411,7 @@ function ProfilePage(props) {
             style={{
               marginTop: 10,
               width: width * 0.9,
-              height: height * 0.11,
+              height: height * 0.2,
               //  backgroundColor: 'white',
               flexDirection: 'row',
               alignItems: 'center',
@@ -421,6 +424,7 @@ function ProfilePage(props) {
               style={{
                 marginLeft: 7,
                 width: width * 0.42,
+                justifyContent:'center',
                 height: height * 0.12,
                 backgroundColor: 'rgba(217, 217, 217, 0.7)',
                 borderRadius: 10,
@@ -468,6 +472,7 @@ function ProfilePage(props) {
               style={{
                 marginLeft: 10,
                 width: width * 0.42,
+                justifyContent:'center',
                 height: height * 0.12,
                 backgroundColor: 'rgba(217, 217, 217, 0.7)',
                 borderRadius: 10,
@@ -529,6 +534,7 @@ function ProfilePage(props) {
                 marginLeft: 7,
                 width: width * 0.42,
                 height: height * 0.12,
+                justifyContent:'center',
                 backgroundColor: 'rgba(217, 217, 217, 0.7)',
                 borderRadius: 10,
                 borderWidth: 3,
@@ -575,6 +581,7 @@ function ProfilePage(props) {
               style={{
                 marginLeft: 10,
                 width: width * 0.42,
+                justifyContent:'center',
                 height: height * 0.12,
                 backgroundColor: 'rgba(217, 217, 217, 0.7)',
                 borderRadius: 10,
