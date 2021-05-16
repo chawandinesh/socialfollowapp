@@ -10,12 +10,15 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/native'
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import firebaseFirestore from '@react-native-firebase/firestore';
 import firebaseAuth from '@react-native-firebase/auth';
 const {height, width} = Dimensions.get('window');
 
 const Details = props => {
+  const isFocused = useIsFocused()
+  const control = async() => {}
   const [loggedInUser, setLoggedInUser] = useState({});
   const [users, setUsers] = useState({});
   /**
@@ -45,8 +48,9 @@ const Details = props => {
    * use effect
    */
   useEffect(() => {
+    control()
     getAsyncData();
-  }, []);
+  }, [isFocused,props]);
 
   const getImage = gender => {
     switch (gender) {
@@ -112,6 +116,13 @@ const Details = props => {
     );
   };
 
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [props])
+
   // console.log( users.filter((e) => loggedInUser  && Array.isArray(loggedInUser.blocks) && !loggedInUser.blocks.includes(e.id) ) ,'loginuser')
   return (
     <ImageBackground
@@ -150,6 +161,7 @@ const Details = props => {
         </View>
       </View>
       <View style={{height: height * 0.85}}>
+        
         <FlatList
           data={
             users.length &&

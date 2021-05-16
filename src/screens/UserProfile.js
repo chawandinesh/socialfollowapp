@@ -254,7 +254,7 @@ function UserProfile(props) {
             marginLeft: 10,
             width: width * 0.45,
             height: height * 0.2,
-            backgroundColor: 'pink',
+            // backgroundColor: 'pink',
             borderRadius: 100,
             borderWidth: 4,
             alignSelf: 'center',
@@ -293,11 +293,12 @@ function UserProfile(props) {
           marginTop: 10,
           width: width * 0.95,
           height: height * 0.7,
-          backgroundColor: '#DCEDC8',
+          // backgroundColor: '#DCEDC8',
+          // backgroundColor: "pink",
           alignSelf: 'center',
           borderTopLeftRadius: 30,
           borderTopRightRadius: 30,
-          borderWidth: 5,
+          // borderWidth: 5,
         }}>
         <View
           style={{
@@ -307,19 +308,24 @@ function UserProfile(props) {
             // backgroundColor: 'pink',
             alignSelf: 'center',
             borderBottomColor: 'black',
-            borderBottomLeftRadius: 30,
-            borderBottomRightRadius: 30,
-            borderBottomWidth: 5,
-            borderRightWidth: 5,
-            borderLeftWidth: 5,
+            // borderBottomLeftRadius: 30,
+            // borderWidth:1,
+            backgroundColor:'#fff',
+            // borderBottomRightRadius: 30,
+            // borderBottomWidth: 5,
+            // borderRightWidth: 5,
+            // borderLeftWidth: 5,
           }}>
           <View
             style={{
               marginTop: 5,
-              width: width * 0.8,
+              width: width * 0.9,
               height: height * 0.075,
               // backgroundColor:'white',
-              borderBottomWidth: 2,
+              backgroundColor: 'rgba(255, 205, 210, 0.4)',
+              // borderWidth:2,
+              borderBottomWidth: 4,
+              borderBottomColor:"#e91e63",
               alignSelf: 'center',
               alignItems: 'center',
               justifyContent: 'center',
@@ -348,7 +354,8 @@ function UserProfile(props) {
             alignSelf: 'center',
             borderBottomColor: 'black',
             borderRadius: 25,
-            borderWidth: 5,
+            backgroundColor:'#fff',
+            // borderWidth: 5,
             flexDirection: 'column',
           }}>
           <Text
@@ -369,7 +376,9 @@ function UserProfile(props) {
               width: width * 0.87,
               height: height * 0.112,
               // backgroundColor: 'white',
-              borderBottomWidth: 2,
+              borderBottomColor:"#e91e63",
+              borderBottomWidth: 4,
+              backgroundColor: 'rgba(255, 205, 210, 0.4)',
               justifyContent: 'center',
               alignSelf: 'center',
             }}>
@@ -404,13 +413,13 @@ function UserProfile(props) {
             style={{
               width: width * 0.42,
               height: height * 0.07,
-              backgroundColor: '#B3E5FC',
+              backgroundColor: '#e91e63',
               alignItems: 'center',
               // justifyContent: 'center',
               marginLeft: 14,
               borderTopLeftRadius: 15,
               borderBottomRightRadius: 15,
-              borderWidth: 5,
+              // borderWidth: 5,
               flexDirection: 'row',
             }}>
             <Text
@@ -423,24 +432,24 @@ function UserProfile(props) {
                 textAlign: 'center',
                 fontSize: height * 0.03,
                 fontWeight: 'bold',
-                color: 'black',
+                color: '#fff',
               }}>
               Like
             </Text>
-            <AntIcon name="like1" style={{fontSize: height * 0.04}} />
+            <AntIcon name="like1" style={{fontSize: height * 0.04, color:'#fff'}} />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => handleDislike(data)}
             style={{
               width: width * 0.42,
               height: height * 0.07,
-              backgroundColor: '#B3E5FC',
+              backgroundColor: '#e91e63',
               alignItems: 'center',
               // justifyContent: 'center',
               marginLeft: 15,
               borderTopRightRadius: 15,
               borderBottomLeftRadius: 15,
-              borderWidth: 5,
+              // borderWidth: 5,
               flexDirection: 'row',
             }}>
             <Text
@@ -453,11 +462,11 @@ function UserProfile(props) {
                 textAlign: 'center',
                 fontSize: height * 0.03,
                 fontWeight: 'bold',
-                color: 'black',
+                color: '#fff',
               }}>
               Dislike
             </Text>
-            <AntIcon name="dislike1" style={{fontSize: height * 0.04}} />
+            <AntIcon name="dislike1" style={{fontSize: height * 0.04, color:'#fff'}} />
           </TouchableOpacity>
         </View>
         <View
@@ -465,10 +474,12 @@ function UserProfile(props) {
             marginTop: 10,
             width: width * 0.95,
             height: height * 0.18,
-            backgroundColor: '#c1e1c5',
+            // backgroundColor: '',
+            // backgroundColor: 'rgba(255, 205, 210, 0.4)',
+
             alignSelf: 'center',
             // alignItems: 'center',
-            borderWidth: 3,
+            // borderWidth: 3,
             flexDirection: 'column',
           }}>
           <Text
@@ -489,12 +500,12 @@ function UserProfile(props) {
               style={{
                 width: width * 0.42,
                 height: height * 0.07,
-                backgroundColor: '#7bdcb5',
+                backgroundColor: '#e91e63',
                 alignItems: 'center',
                 marginLeft: 14,
                 borderTopLeftRadius: 15,
                 borderBottomLeftRadius: 15,
-                borderWidth: 5,
+                // borderWidth: 5,
                 flexDirection: 'row',
               }}>
               <TouchableOpacity onPress={() => handleApproach(data)}>
@@ -508,7 +519,7 @@ function UserProfile(props) {
                     textAlign: 'center',
                     fontSize: height * 0.03,
                     fontWeight: 'bold',
-                    color: 'black',
+                    color: '#fff',
                   }}>
                   Yes
                 </Text>
@@ -519,12 +530,12 @@ function UserProfile(props) {
               style={{
                 width: width * 0.42,
                 height: height * 0.07,
-                backgroundColor: '#7bdcb5',
+                backgroundColor: '#e91e63',
                 alignItems: 'center',
                 marginLeft: 15,
                 borderTopRightRadius: 15,
                 borderBottomRightRadius: 15,
-                borderWidth: 5,
+                // borderWidth: 5,
                 flexDirection: 'row',
               }}>
               <Text
@@ -537,7 +548,7 @@ function UserProfile(props) {
                   textAlign: 'center',
                   fontSize: height * 0.03,
                   fontWeight: 'bold',
-                  color: 'black',
+                  color: '#fff',
                 }}>
                 No
               </Text>

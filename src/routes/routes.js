@@ -23,6 +23,7 @@ export default function Routes() {
     isLoggedIn: false,
     loaded: false,
   });
+  // console.log(firebaseAuth().currentUser)
   const HomeDrawer = () => {
     return (
       <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>

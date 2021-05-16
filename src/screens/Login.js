@@ -74,8 +74,10 @@ function LoginPage(props) {
         .signInWithEmailAndPassword(email, password)
         .then(res => {
           setLoading(false);
+          console.log(res)
         })
         .catch(err => {
+          console.log(err)
           setLoading(false);
           if (err.code === 'auth/invalid-email') {
             Toast.show({
