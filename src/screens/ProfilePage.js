@@ -9,20 +9,21 @@ import {
   TextInput,
   Image,
   Alert,
+  StyleSheet,
 } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import firebaseFireStore from '@react-native-firebase/firestore';
-import ImagePicker from 'react-native-image-crop-picker'
+import ImagePicker from 'react-native-image-crop-picker';
 import firebaseAuth from '@react-native-firebase/auth';
-import firebaseStorage from '@react-native-firebase/storage'
+import firebaseStorage from '@react-native-firebase/storage';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {Icon, Spinner} from 'native-base';
 const {height, width} = Dimensions.get('window');
 
 function ProfilePage(props) {
   const [editable, setEditable] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({});
   useEffect(() => {
     firebaseFireStore()
@@ -41,17 +42,17 @@ function ProfilePage(props) {
     // const task = firebaseStorage().ref().child(childPath).delete()
     const task = firebaseStorage().ref().child(childPath).put(blob);
     const taskProgress = snapshot => {
-      setLoading(true)
+      setLoading(true);
     };
     const taskCompleted = () => {
-      setLoading(false)
+      setLoading(false);
       task.snapshot.ref.getDownloadURL().then(resSnap => {
         setUser({...user, image: resSnap});
       });
     };
 
     const taskError = snapshot => {
-      setLoading(false)
+      setLoading(false);
     };
     task.on('state_changed', taskProgress, taskError, taskCompleted);
   };
@@ -71,39 +72,41 @@ function ProfilePage(props) {
   };
 
   const handleSubmit = () => {
-    setLoading(true)
-    firebaseFireStore().collection('users').doc(firebaseAuth().currentUser.uid).update(user).then((res) => {
-      setLoading(false)
-      Alert.alert(
-        "Success",
-        "Profile updated successfully",
-        [
+    setLoading(true);
+    firebaseFireStore()
+      .collection('users')
+      .doc(firebaseAuth().currentUser.uid)
+      .update(user)
+      .then(res => {
+        setLoading(false);
+        Alert.alert('Success', 'Profile updated successfully', [
           {
-            text: "Ok",
+            text: 'Ok',
             onPress: () => setEditable(false),
-            style: "cancel"
+            style: 'cancel',
           },
-        ]
-      );
-    }).catch((err) => {
-      // Alert("Failed", "profile updation failed",  [
-      //   { text: "OK", onPress: () => console.log("OK Pressed") }
-      // ])
-    })
-  }
+        ]);
+      })
+      .catch(err => {
+        // Alert("Failed", "profile updation failed",  [
+        //   { text: "OK", onPress: () => console.log("OK Pressed") }
+        // ])
+      });
+  };
 
   // imag
   return (
     <KeyboardAwareScrollView>
-      <ImageBackground
-        source={require('../assets/Dbk.jpeg')}
-        style={{height, width}}>
+      <View
+        // source={require('../assets/Dbk.jpeg')}
+        style={{height, width, backgroundColor: '#fff'}}>
         <View
           style={{
             marginTop: -20,
             width,
-            height: height * 0.55,
-            backgroundColor: 'rgba(22,23,23,0.5)',
+            height: height * 0.45,
+            // backgroundColor: 'rgba(22,23,23,0.5)',
+            backgroundColor: '#e91e63',
             borderBottomLeftRadius: 40,
             borderBottomRightRadius: 40,
             shadowColor: 'rgba(22,23,23,0.9)',
@@ -111,16 +114,24 @@ function ProfilePage(props) {
             shadowOpacity: 5,
             elevation: 3,
           }}>
-            {
-              loading ?
-              <View style={{backgroundColor:'rgba(0,0,0)',zIndex:4, position:'absolute', top: height * 0.4, left: width * 0.3, alignItems:'center', justifyContent:'center'}}>
-                <Spinner style={{color:'#fff'}} color="#fff" size={height * 0.2} />
-
-              </View>
-
-              :
-              null
-            }
+          {loading ? (
+            <View
+              style={{
+                backgroundColor: 'rgba(0,0,0)',
+                zIndex: 4,
+                position: 'absolute',
+                top: height * 0.4,
+                left: width * 0.3,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Spinner
+                style={{color: '#fff'}}
+                color="#fff"
+                size={height * 0.2}
+              />
+            </View>
+          ) : null}
 
           <View
             style={{
@@ -157,7 +168,10 @@ function ProfilePage(props) {
                 Details
               </Text>
             </View>
-            <TouchableOpacity onPress={() => {setEditable(!editable)}}>
+            <TouchableOpacity
+              onPress={() => {
+                setEditable(!editable);
+              }}>
               {editable ? (
                 <Icon
                   name="close"
@@ -265,7 +279,7 @@ function ProfilePage(props) {
                   textAlign: 'center',
                   fontWeight: 'bold',
                   fontSize: 30,
-                  color: 'red',
+                  color: '#fdd',
                 }}>
                 {user.userName}
               </Text>
@@ -303,13 +317,14 @@ function ProfilePage(props) {
                   textAlign: 'center',
                   fontWeight: 'bold',
                   fontSize: 20,
-                  color: 'green',
+                  color: '#234',
+                  // color: 'green',
                 }}>
                 {user.description}
               </Text>
             )}
           </View>
-          <View
+          {/* <View
             style={{
               marginTop: 5,
               width: width * 0.98,
@@ -394,17 +409,17 @@ function ProfilePage(props) {
                 Rejected
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
         <View
           style={{
             marginTop: 5,
             width: width * 0.95,
-            height: height * 0.42,
+            height: height * 0.55,
             backgroundColor: 'rgba(220, 231, 117, 0.3)',
             alignSelf: 'center',
             alignItems: 'center',
-            borderWidth: 3,
+            // borderWidth: 3,
             borderRadius: 10,
           }}>
           <View
@@ -420,100 +435,96 @@ function ProfilePage(props) {
               shadowOpacity: 3,
               elevation: 3,
             }}>
-            <View
-              style={{
-                marginLeft: 7,
-                width: width * 0.42,
-                justifyContent:'center',
-                height: height * 0.12,
-                backgroundColor: 'rgba(217, 217, 217, 0.7)',
-                borderRadius: 10,
-                borderWidth: 3,
-                alignItems: 'center',
-              }}>
-              <Text
+            <View style={{backgroundColor: '#F0F4C3', padding: 5}}>
+              <View
                 style={{
-                  width: width * 0.4,
-                  height: height * 0.04,
-                  fontSize: 23,
-                  fontWeight: 'bold',
+                  // marginLeft: 7,
+                  width: width * 0.42,
+                  justifyContent: 'center',
+                  height: height * 0.12,
+                  backgroundColor: 'rgba(255, 205, 210, 0.4)',
+                  borderRadius: 10,
+                  // borderWidth: 3,
                   alignItems: 'center',
-                  textAlign: 'center',
-                  // backgroundColor: 'white',
+                  borderBottomColor: '#e91e63',
+                  borderBottomWidth: 4,
                 }}>
-                Age :
-              </Text>
-              {editable ? (
-                <TextInput
-                  value={user.age}
-                  onChangeText={text => setUser({...user, age: text})}
-                  style={{
-                    width: width * 0.3,
-                    height: height * 0.06,
-                    backgroundColor: '#fff',
-                  }}
-                />
-              ) : (
                 <Text
                   style={{
-                    marginTop: 3,
                     width: width * 0.4,
-                    height: height * 0.035,
-                    fontSize: 25,
+                    height: height * 0.04,
+                    fontSize: 23,
                     fontWeight: 'bold',
                     alignItems: 'center',
                     textAlign: 'center',
+                    // backgroundColor: 'white',
                   }}>
-                  {user.age}
+                  Age :
                 </Text>
-              )}
+                {editable ? (
+                  <TextInput
+                    value={user.age}
+                    onChangeText={text => setUser({...user, age: text})}
+                    style={{
+                      width: width * 0.3,
+                      height: height * 0.06,
+                      backgroundColor: '#fff',
+                    }}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      marginTop: 3,
+                      width: width * 0.4,
+                      height: height * 0.035,
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                    }}>
+                    {user.age}
+                  </Text>
+                )}
+              </View>
             </View>
-            <View
-              style={{
-                marginLeft: 5,
-                width: width * 0.42,
-                justifyContent:'center',
-                height: height * 0.12,
-                backgroundColor: 'rgba(217, 217, 217, 0.7)',
-                borderRadius: 10,
-                borderWidth: 3,
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  width: width * 0.4,
-                  height: height * 0.04,
-                  fontSize: 23,
-                  fontWeight: 'bold',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                }}>
-                Caste :
-              </Text>
-              {editable ? (
-                <TextInput
-                  value={user.caste}
-                  onChangeText={text => setUser({...user, caste: text})}
-                  style={{
-                    width: width * 0.3,
-                    height: height * 0.06,
-                    backgroundColor: '#fff',
-                  }}
-                />
-              ) : (
+            <View style={{backgroundColor: '#F0F4C3', padding: 5}}>
+              <View style={style.cardA}>
                 <Text
                   style={{
-                    marginTop: 3,
                     width: width * 0.4,
-                    height: height * 0.035,
-                    fontSize: 25,
+                    height: height * 0.04,
+                    fontSize: 23,
                     fontWeight: 'bold',
                     alignItems: 'center',
                     textAlign: 'center',
                   }}>
-                  {user.caste}
+                  Community :
                 </Text>
-              )}
+                {editable ? (
+                  <TextInput
+                    value={user.caste}
+                    onChangeText={text => setUser({...user, caste: text})}
+                    style={{
+                      width: width * 0.3,
+                      height: height * 0.06,
+                      backgroundColor: '#fff',
+                    }}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      marginTop: 3,
+                      width: width * 0.4,
+                      height: height * 0.035,
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                    }}>
+                    {user.caste}
+                  </Text>
+                )}
+              </View>
             </View>
           </View>
           <View
@@ -529,125 +540,113 @@ function ProfilePage(props) {
               shadowOpacity: 3,
               elevation: 3,
             }}>
-            <View
-              style={{
-                marginLeft: 7,
-                width: width * 0.42,
-                height: height * 0.12,
-                justifyContent:'center',
-                backgroundColor: 'rgba(217, 217, 217, 0.7)',
-                borderRadius: 10,
-                borderWidth: 3,
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  width: width * 0.4,
-                  height: height * 0.04,
-                  fontSize: 23,
-                  fontWeight: 'bold',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  // backgroundColor: 'white',
-                }}>
-                Height :
-              </Text>
-              {editable ? (
-                <TextInput
-                  value={user.height}
-                  onChangeText={text => setUser({...user, height: text})}
-                  style={{
-                    width: width * 0.3,
-                    height: height * 0.06,
-                    backgroundColor: '#fff',
-                  }}
-                />
-              ) : (
+            <View style={style.cardbg}>
+              <View style={style.cardA}>
                 <Text
                   style={{
-                    marginTop: 3,
                     width: width * 0.4,
-                    height: height * 0.035,
-                    fontSize: 25,
+                    height: height * 0.04,
+                    fontSize: 23,
                     fontWeight: 'bold',
                     alignItems: 'center',
                     textAlign: 'center',
+                    // backgroundColor: 'white',
                   }}>
-                  {user.height}
+                  Height :
                 </Text>
-              )}
+                {editable ? (
+                  <TextInput
+                    value={user.height}
+                    onChangeText={text => setUser({...user, height: text})}
+                    style={{
+                      width: width * 0.3,
+                      height: height * 0.06,
+                      backgroundColor: '#fff',
+                    }}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      marginTop: 3,
+                      width: width * 0.4,
+                      height: height * 0.035,
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                    }}>
+                    {user.height}
+                  </Text>
+                )}
+              </View>
             </View>
-            <View
-              style={{
-                marginLeft: 10,
-                width: width * 0.42,
-                justifyContent:'center',
-                height: height * 0.12,
-                backgroundColor: 'rgba(217, 217, 217, 0.7)',
-                borderRadius: 10,
-                borderWidth: 3,
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  width: width * 0.4,
-                  height: height * 0.04,
-                  fontSize: 23,
-                  fontWeight: 'bold',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                }}>
-                Weight :
-              </Text>
-              {editable ? (
-                <TextInput
-                  value={user.weight}
-                  onChangeText={text => setUser({...user, weight: text})}
-                  style={{
-                    width: width * 0.3,
-                    height: height * 0.06,
-                    backgroundColor: '#fff',
-                  }}
-                />
-              ) : (
+            {/* <View></View> */}
+            <View style={style.cardbg}>
+              <View style={style.cardA}>
                 <Text
                   style={{
-                    marginTop: 3,
                     width: width * 0.4,
-                    height: height * 0.035,
-                    fontSize: 25,
+                    color: '#000',
+                    height: height * 0.04,
+                    fontSize: 23,
                     fontWeight: 'bold',
                     alignItems: 'center',
                     textAlign: 'center',
                   }}>
-                  {user.weight}
+                  Weight :
                 </Text>
-              )}
+                {editable ? (
+                  <TextInput
+                    value={user.weight}
+                    onChangeText={text => setUser({...user, weight: text})}
+                    style={{
+                      width: width * 0.3,
+                      height: height * 0.06,
+                      backgroundColor: '#fff',
+                    }}
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      marginTop: 3,
+                      width: width * 0.4,
+                      height: height * 0.035,
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      alignItems: 'center',
+                      textAlign: 'center',
+                    }}>
+                    {user.weight}
+                  </Text>
+                )}
+              </View>
             </View>
           </View>
           {editable ? (
             <View
               style={{
                 width: width,
-                height: height * 0.1,
+                paddingTop: height * 0.02,
+                height: height * 0.07,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <TouchableOpacity
-               onPress={() => handleSubmit()}
+                onPress={() => handleSubmit()}
                 style={{
                   height: height * 0.07,
                   width: width * 0.4,
-                  borderWidth: 3,
+                  // borderWidth: 3,
+                  borderRadius: 15,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  backgroundColor: '#ddd',
+                  backgroundColor: '#e91e63',
                 }}>
                 <Text
                   style={{
                     fontSize: height * 0.024,
                     fontWeight: 'bold',
-                    color: '#342',
+                    color: '#fff',
                   }}>
                   Submit
                 </Text>
@@ -655,9 +654,139 @@ function ProfilePage(props) {
               {/* <TouchableOpacity></TouchableOpacity> */}
             </View>
           ) : null}
+          <View
+            style={{
+              marginTop: 5,
+              width: width * 0.95,
+              height: height * 0.15,
+              // backgroundColor: 'white',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-around',
+              alignSelf: 'center',
+            }}>
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.navigate('ReceivedRequests', {
+                  data: 'Approach',
+                })
+              }
+              style={{
+                marginLeft: 2,
+                width: width * 0.28,
+                height: height * 0.07,
+                backgroundColor: '#e91e63',
+                // borderWidth: 3,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: {width: 1, height: 1},
+                shadowOpacity: 0.5,
+                shadowRadius: 4,
+                borderRadius: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  width: width * 0.32,
+                  height: height * 0.04,
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  color: 'white',
+                }}>
+                Approach
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.navigate('ReceivedRequests', {
+                  data: 'Shortlist',
+                })
+              }
+              style={{
+                marginLeft: 2,
+                width: width * 0.28,
+                height: height * 0.07,
+                backgroundColor: '#e91e63',
+                // borderWidth: 3,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: {width: 1, height: 1},
+                shadowOpacity: 0.5,
+                shadowRadius: 4,
+                borderRadius: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  width: width * 0.32,
+                  height: height * 0.04,
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  color: 'white',
+                }}>
+                Shortlist
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.navigate('ReceivedRequests', {
+                  data: 'Rejected',
+                })
+              }
+              style={{
+                marginLeft: 2,
+                width: width * 0.28,
+                height: height * 0.07,
+                backgroundColor: '#e91e63',
+                // borderWidth: 3,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: {width: 1, height: 1},
+                shadowOpacity: 0.5,
+                shadowRadius: 4,
+                borderRadius: 10,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                style={{
+                  width: width * 0.32,
+                  height: height * 0.04,
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  color: 'white',
+                }}>
+                Rejected
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </ImageBackground>
+      </View>
     </KeyboardAwareScrollView>
   );
 }
+
+const style = StyleSheet.create({
+  cardbg: {backgroundColor: '#F0F4C3', padding: 5},
+  cardA: {
+    // marginLeft: 7,
+    width: width * 0.42,
+    justifyContent: 'center',
+    height: height * 0.12,
+    backgroundColor: 'rgba(255, 205, 210, 0.4)',
+    borderRadius: 10,
+    // borderWidth: 3,
+    alignItems: 'center',
+    borderBottomColor: '#e91e63',
+    borderBottomWidth: 4,
+  },
+});
 export default ProfilePage;

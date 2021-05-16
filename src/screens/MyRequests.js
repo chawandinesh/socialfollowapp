@@ -17,34 +17,9 @@ import AntIcon from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {DatingAppContext} from '../context/Context';
+import { Icon } from 'native-base';
 const {height, width} = Dimensions.get('window');
-const DATA = [
-  {
-    name: 'Dinesh Chandra',
-    age: 25,
-    image: require('../assets/prf.png'),
-  },
-  {
-    name: 'Vikas Kumar',
-    age: 21,
-    image: require('../assets/prf.png'),
-  },
-  {
-    name: 'Happy Singh',
-    age: 22,
-    image: require('../assets/prf.png'),
-  },
-  {
-    name: 'Amit Kumar',
-    age: 27,
-    image: require('../assets/prf.png'),
-  },
-  {
-    name: 'Pawan Yadav',
-    age: 24,
-    image: require('../assets/prf.png'),
-  },
-];
+
 
 const AllDetails = props => {
   const [filterUserType, setFilterUserType] = useState('ShortListed');
@@ -120,40 +95,68 @@ const AllDetails = props => {
         setUsers(users.filter(e => e.id !== firebaeAuth().currentUser.uid));
       });
   }, []);
+  const getImage = gender => {
+    switch (gender) {
+      case 'male':
+        return (
+          <Image
+            style={{height: height * 0.095, width: height * 0.095, borderWidth:2, borderRadius: height * 0.05}}
+            source={require('../assets/prf.png')}
+          />
+        );
 
+      case 'female':
+        return (
+          <Image
+          style={{height: height * 0.1, width: height * 0.1, borderWidth:2, borderRadius: height * 0.05}}            source={require('../assets/fml.png')}
+          />
+        );
+
+      default:
+        break;
+    }
+  };
   const Data = ({item, index}) => {
     return (
       <TouchableOpacity
+        style={styles.item}
         onPress={() => props.navigation.navigate('UserProfile', {data: item})}>
-        <View style={styles.item}>
-          {item.image == '' ? (
-            <View
-              style={{
-                width: 115,
-                height: 105,
-                borderWidth: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              {item.gender == 'male' ? (
-                <Fontisto name="male" style={{fontSize: 50}} />
-              ) : (
-                <Fontisto name="female" style={{fontSize: 50}} />
-              )}
-            </View>
-          ) : (
+        <View
+          style={{
+            marginLeft: 5,
+            width: width * 0.87,
+            height: height * 0.12,
+            backgroundColor: 'rgba(255, 205, 210, 0.7)',
+            alignSelf: 'center',
+            flexDirection:'row',
+            justifyContent:'space-between',
+            // justifyContent:'center'
+            alignItems:'center',
+            borderRadius: 5,
+            // borderBottomColor:'#e91e63',
+            // borderBottomWidth: 5
+          }}>
+
+          {item.image.length ? (
             <Image
-              style={{height: 105, width: 115}}
-              source={item.image === '' ? null : {uri: item.image}}
+              style={{ height: height * 0.1, width: height * 0.1,borderWidth:2, borderRadius: height * 0.05}}
+              source={{uri: item.image}}
             />
+          ) : (
+            <View style={{borderWidth:2,height: height * 0.1, width: height * 0.1, borderRadius: height * 0.05, alignItems:'center', justifyContent:'center'}}>
+
+           { getImage(item.gender)}
+            </View>
           )}
+            {/* </View> */}
+
           <View style={styles.viewType}>
             <Text style={styles.info}>Name:</Text>
+            <View style={styles.line}></View>
             <Text style={styles.title}>{item.userName}</Text>
-            <View style={styles.line}></View>
             <Text style={styles.info}>Age:</Text>
-            <Text style={styles.ageType}>{item.age}</Text>
             <View style={styles.line}></View>
+            <Text style={styles.ageType}>{item.age}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -176,9 +179,9 @@ const AllDetails = props => {
         <View>
               <TouchableOpacity
                 style={{justifyContent: 'center', padding: 5}}
-                onPress={() => props.navigation.goBack()}>
-                <AntIcon
-                  name="arrowleft"
+                onPress={() => props.navigation.openDrawer()}>
+                <Icon
+                  name="menu"
                   style={{fontSize: height * 0.05, color: 'black'}}
                 />
               </TouchableOpacity>
@@ -188,7 +191,7 @@ const AllDetails = props => {
             style={{justifyContent: 'center', padding: 5}}
             onPress={() => props.navigation.navigate('Profile')}>
             {!profileInfo.image ? (
-              <AntIcon name="user" style={{fontSize: height * 0.03}} />
+              <Icon name="user" type="FontAwesome" style={{marginRight: 10}}  />
             ) : (
               <Image
                 source={{uri: profileInfo.image}}
@@ -321,54 +324,58 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: '#DCEDC8',
+    backgroundColor: '#F0F4C3',
     padding: 5,
     marginVertical: 8,
     marginHorizontal: 15,
+    height: height * 0.15,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 20,
-    borderWidth: 5,
+    borderRadius: 5,
+    borderBottomWidth: 5,
+    borderBottomColor:'#e91e63',
     shadowColor: 'black',
-    shadowOffset: {width: 10, height: 10},
+    shadowOffset: {width: 5, height: 10},
     shadowOpacity: 5,
-    elevation: 3,
+    elevation: 6,
     shadowRadius: 5,
   },
   title: {
     // backgroundColor: 'pink',
-    width: width * 0.56,
-    height: height * 0.04,
-    fontSize: 22,
-    textAlign: 'center',
+    width: width * 0.5,
+  //  marginLeft: width * 0.14,
+    // height: height * 0.04,
+    fontSize: 16,
+
+    textAlign: 'left',
     color: 'green',
   },
   viewType: {
     marginLeft: 5,
     // backgroundColor: 'white',
-    width: width * 0.56,
-    height: height * 0.14,
+    width: width * 0.54,
+    height: height * 0.11,
   },
   info: {
-    marginTop: 2,
-    fontSize: 15,
+    // marginTop: 2,
+    fontSize: 14,
     fontWeight: 'bold',
-    padding: 1,
+    // padding: 1,
     color: 'red',
   },
   line: {
     width: width * 0.55,
-    height: height * 0.004,
-    backgroundColor: 'black',
+    // height: height * 0.004,
+    // backgroundColor: '#e91e63',
     alignSelf: 'center',
   },
   ageType: {
-    marginTop: 1,
+    // marginTop: 1,
     // backgroundColor: 'pink',
     width: width * 0.56,
-    height: height * 0.04,
-    fontSize: 22,
-    textAlign: 'center',
+    // height: height * 0.04,
+    fontSize: 16,
+    // textAlign: 'center',
   },
 });
 

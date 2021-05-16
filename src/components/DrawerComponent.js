@@ -6,10 +6,12 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
+  ImageBackground,
 } from 'react-native';
 import firebaseAuth from '@react-native-firebase/auth';
 import firebaseStorage from '@react-native-firebase/storage';
-import firebaseFireStore from '@react-native-firebase/firestore'
+import {Icon} from 'native-base';
+import firebaseFireStore from '@react-native-firebase/firestore';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useIsFocused} from '@react-navigation/native';
@@ -19,26 +21,32 @@ const {height, width} = Dimensions.get('window');
 export default function DrawerContent(props) {
   const handleLogout = () => {
     firebaseAuth().signOut();
-    AsyncStorage.clear()
+    AsyncStorage.clear();
   };
   const [loggedInUser, setLoggedInUser] = useState({});
   const getAsyncData = async () => {
     try {
-      firebaseFireStore().collection('users').doc(firebaseAuth().currentUser.uid).get().then((res) => {
-        setLoggedInUser({...res.data(), id: res.id})
-      })
+      firebaseFireStore()
+        .collection('users')
+        .doc(firebaseAuth().currentUser.uid)
+        .get()
+        .then(res => {
+          setLoggedInUser({...res.data(), id: res.id});
+        });
     } catch (err) {}
   };
   useEffect(() => {
-    getAsyncData()
-  }, [])
+    getAsyncData();
+  }, []);
 
   const image = null;
   return (
-    <DrawerContentScrollView {...props}>
-      <View style={styles.drawerContainer}>
+    <DrawerContentScrollView {...props} style={{width: width * 0.5}}  >
+      <ImageBackground
+        source={require('../assets/bg2.jpg')}
+        style={styles.drawerContainer}>
         <View style={styles.profileImageContainer}>
-          {loggedInUser.image === "" ? (
+          {loggedInUser.image === '' ? (
             <FontAwesome5 name="user-circle" size={height * 0.1} />
           ) : (
             <Image
@@ -53,17 +61,31 @@ export default function DrawerContent(props) {
         </View>
         <View style={styles.drawerNavigationContainer}>
           <View style={styles.drawerItemsContainer}>
-            <View style={{borderWidth:4,width:'auto', borderRadius: height * 0.03, minWidth: width * 0.4}}>
-              <Text style={{fontSize: height * 0.03, fontWeight:'bold', textAlign:'center'}}>{loggedInUser.userName}</Text>
+            <View
+              style={{
+                borderWidth: 1,
+                width: 'auto',
+                borderRadius: height * 0.04,
+                minWidth: width * 0.4,
+              }}>
+              <Text
+                style={{
+                  fontSize: height * 0.03,
+                  fontWeight: 'bold',
+                  textAlign: 'center',
+                  color:'#fff'
+                }}>
+                {loggedInUser.userName}
+              </Text>
             </View>
             <TouchableOpacity
               style={{
-                borderTopWidth: 4,
-                borderTopColor: '#ee3',
-                backgroundColor: '#478',
-                width: width * 0.6,
+                borderTopColor: '#e91e63',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                width: width * 0.4,
+                alignSelf:'center',
                 alignItems: 'center',
-                elevation: 1,
+                elevation: 2,
                 shadowColor: '#000',
                 shadowOffset: {
                   width: 1,
@@ -72,22 +94,28 @@ export default function DrawerContent(props) {
                 shadowRadius: 1,
                 shadowOpacity: 1,
                 paddingVertical: 10,
-                borderRightWidth: 2,
-                borderLeftWidth: 2,
               }}
               onPress={() => {
                 props.navigation.navigate('Profile');
               }}>
-              <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>Profile</Text>
+              <Icon name="user" type="FontAwesome" style={{color: '#fff'}} />
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: height * 0.023,
+                  fontWeight: 'bold',
+                }}>
+                Profile
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                borderTopWidth: 4,
-                borderTopColor: '#ee3',
-                backgroundColor: '#478',
-                width: width * 0.6,
+                borderTopColor: '#e91e63',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                width: width * 0.4,
+                alignSelf:'center',
                 alignItems: 'center',
-                elevation: 1,
+                elevation: 2,
                 shadowColor: '#000',
                 shadowOffset: {
                   width: 1,
@@ -96,22 +124,33 @@ export default function DrawerContent(props) {
                 shadowRadius: 1,
                 shadowOpacity: 1,
                 paddingVertical: 10,
-                borderRightWidth: 2,
-                borderLeftWidth: 2,
               }}
               onPress={() => {
                 props.navigation.navigate('MyRequests');
               }}>
-              <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>Users requests</Text>
+              <Icon
+                name="user-friends"
+                type="FontAwesome5"
+                style={{color: '#fff'}}
+              />
+
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: height * 0.023,
+                  fontWeight: 'bold',
+                }}>
+                Users requests
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                borderTopWidth: 4,
-                borderTopColor: '#ee3',
-                backgroundColor: '#478',
-                width: width * 0.6,
+                borderTopColor: '#e91e63',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                width: width * 0.4,
+                alignSelf:'center',
                 alignItems: 'center',
-                elevation: 1,
+                elevation: 2,
                 shadowColor: '#000',
                 shadowOffset: {
                   width: 1,
@@ -119,24 +158,34 @@ export default function DrawerContent(props) {
                 },
                 shadowRadius: 1,
                 shadowOpacity: 1,
-
                 paddingVertical: 10,
-                borderRightWidth: 2,
-                borderLeftWidth: 2,
               }}
               onPress={() => {
                 props.navigation.navigate('AboutUs');
               }}>
-              <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>AboutUs</Text>
+              <Icon
+                name="description"
+                type="MaterialIcons"
+                style={{color: '#fff'}}
+              />
+
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: height * 0.023,
+                  fontWeight: 'bold',
+                }}>
+                AboutUs
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{
-                borderTopWidth: 4,
-                borderTopColor: '#ee3',
-                backgroundColor: '#478',
-                width: width * 0.6,
+                borderTopColor: '#e91e63',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                width: width * 0.4,
+                alignSelf:'center',
                 alignItems: 'center',
-                elevation: 1,
+                elevation: 2,
                 shadowColor: '#000',
                 shadowOffset: {
                   width: 1,
@@ -145,13 +194,24 @@ export default function DrawerContent(props) {
                 shadowRadius: 1,
                 shadowOpacity: 1,
                 paddingVertical: 10,
-                borderRightWidth: 2,
-                borderLeftWidth: 2,
               }}
               onPress={() => {
                 props.navigation.navigate('RateUs');
               }}>
-              <Text style={{color:'#fff', fontSize: height * 0.023, fontWeight:'bold'}}>Rate Us</Text>
+              <Icon
+                name="star-rate"
+                type="MaterialIcons"
+                style={{color: '#fff'}}
+              />
+
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: height * 0.023,
+                  fontWeight: 'bold',
+                }}>
+                Rate Us
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -159,19 +219,24 @@ export default function DrawerContent(props) {
             style={styles.logoutBtn}
             onPress={() => handleLogout()}>
             <Text style={styles.logoutText}>Logout</Text>
+               <Icon
+                name="log-out"
+                type="entype"
+                style={{color: 'rgba(255,255,255,0.5)', paddingLeft: 10}}
+              />
           </TouchableOpacity>
         </View>
-      </View>
+      </ImageBackground>
     </DrawerContentScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  drawerContainer: { backgroundColor:'#fdd', height: height},
+  drawerContainer: {height: height, width: width, marginTop: -10},
   profileImageContainer: {
-    height: height * 0.2,
+    height: height * 0.25,
     // marginBottom: 20,
-    width: width * 0.7,
+    width: width * 0.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -180,8 +245,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   drawerItemsContainer: {
-    width: width * 0.7,
-    height: height * 0.4,
+    width: width * 0.5,
+    // alignSelf:'center',
+    height: height * 0.6,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
@@ -192,9 +258,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoutBtn: {
-    width: width * 0.7,
+    width: width * 0.5,
     alignItems: 'center',
-    backgroundColor: 'darkred',
+    backgroundColor: '#e91e63',
+    flexDirection:'row',
     height: height * 0.06,
     justifyContent: 'center',
   },

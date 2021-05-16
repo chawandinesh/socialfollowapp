@@ -42,14 +42,17 @@ const Details = props => {
         .then(docSnap => {
           setLoggedInUser({...docSnap.data(), id: docSnap.id});
         });
-    } catch (err) {}
+    } catch (err) {
+      // alert(err)
+    }
   };
   /**
    * use effect
    */
   useEffect(() => {
     control()
-    getAsyncData();
+   getAsyncData();
+    
   }, [isFocused,props]);
 
   const getImage = gender => {
@@ -57,7 +60,7 @@ const Details = props => {
       case 'male':
         return (
           <Image
-            style={{height: 105, width: 115}}
+            style={{height: height * 0.095, width: height * 0.095, borderWidth:2, borderRadius: height * 0.05}}
             source={require('../assets/prf.png')}
           />
         );
@@ -65,8 +68,7 @@ const Details = props => {
       case 'female':
         return (
           <Image
-            style={{height: 105, width: 115}}
-            source={require('../assets/fml.png')}
+          style={{height: height * 0.1, width: height * 0.1, borderWidth:2, borderRadius: height * 0.05}}            source={require('../assets/fml.png')}
           />
         );
 
@@ -84,32 +86,38 @@ const Details = props => {
           style={{
             marginLeft: 5,
             width: width * 0.87,
-            height: height * 0.17,
+            height: height * 0.12,
             backgroundColor: 'rgba(255, 205, 210, 0.7)',
             alignSelf: 'center',
             flexDirection:'row',
+            justifyContent:'space-between',
             // justifyContent:'center'
             alignItems:'center',
             borderRadius: 5,
-            borderBottomColor:'#e91e63',
-            borderBottomWidth: 5
+            // borderBottomColor:'#e91e63',
+            // borderBottomWidth: 5
           }}>
+
           {item.image.length ? (
             <Image
-              style={{marginLeft: 3, height: 105, width: 110, borderRadius: 20}}
+              style={{ height: height * 0.1, width: height * 0.1,borderWidth:2, borderRadius: height * 0.05}}
               source={{uri: item.image}}
             />
           ) : (
-            getImage(item.gender)
+            <View style={{borderWidth:2,height: height * 0.1, width: height * 0.1, borderRadius: height * 0.05, alignItems:'center', justifyContent:'center'}}>
+
+           { getImage(item.gender)}
+            </View>
           )}
+            {/* </View> */}
 
           <View style={styles.viewType}>
             <Text style={styles.info}>Name:</Text>
+            <View style={styles.line}></View>
             <Text style={styles.title}>{item.userName}</Text>
-            <View style={styles.line}></View>
             <Text style={styles.info}>Age:</Text>
-            <Text style={styles.ageType}>{item.age}</Text>
             <View style={styles.line}></View>
+            <Text style={styles.ageType}>{item.age}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -165,7 +173,7 @@ const Details = props => {
         <FlatList
           data={
             users.length &&
-            users.filter(e => e.id !== firebaseAuth().currentUser.uid)
+            users.filter(e => e.id !== loggedInUser.id)
             .filter((e) => loggedInUser  && Array.isArray(loggedInUser.blocks) && !loggedInUser.blocks.includes(e.id))
           }
           renderItem={Data}
@@ -185,51 +193,54 @@ const styles = StyleSheet.create({
     padding: 5,
     marginVertical: 8,
     marginHorizontal: 15,
-    height: height * 0.2,
+    height: height * 0.15,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 5,
-    // borderWidth: 5,
+    borderBottomWidth: 5,
+    borderBottomColor:'#e91e63',
     shadowColor: 'black',
     shadowOffset: {width: 5, height: 10},
     shadowOpacity: 5,
-    elevation: 3,
+    elevation: 6,
     shadowRadius: 5,
   },
   title: {
     // backgroundColor: 'pink',
-    width: width * 0.56,
-    height: height * 0.04,
+    width: width * 0.5,
+  //  marginLeft: width * 0.14,
+    // height: height * 0.04,
     fontSize: 16,
-    textAlign: 'center',
+
+    textAlign: 'left',
     color: 'green',
   },
   viewType: {
     marginLeft: 5,
     // backgroundColor: 'white',
     width: width * 0.54,
-    height: height * 0.14,
+    height: height * 0.11,
   },
   info: {
-    marginTop: 2,
+    // marginTop: 2,
     fontSize: 14,
     fontWeight: 'bold',
-    padding: 1,
+    // padding: 1,
     color: 'red',
   },
   line: {
     width: width * 0.55,
-    height: height * 0.004,
-    backgroundColor: 'black',
+    // height: height * 0.004,
+    // backgroundColor: '#e91e63',
     alignSelf: 'center',
   },
   ageType: {
-    marginTop: 1,
+    // marginTop: 1,
     // backgroundColor: 'pink',
     width: width * 0.56,
-    height: height * 0.04,
+    // height: height * 0.04,
     fontSize: 16,
-    textAlign: 'center',
+    // textAlign: 'center',
   },
 });
 

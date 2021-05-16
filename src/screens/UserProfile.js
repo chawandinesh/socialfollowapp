@@ -310,7 +310,8 @@ function UserProfile(props) {
             borderBottomColor: 'black',
             // borderBottomLeftRadius: 30,
             // borderWidth:1,
-            backgroundColor:'#fff',
+            // backgroundColor:'#fff',
+            backgroundColor: '#F0F4C3',
             // borderBottomRightRadius: 30,
             // borderBottomWidth: 5,
             // borderRightWidth: 5,
@@ -334,10 +335,11 @@ function UserProfile(props) {
               style={{
                 padding: 15,
                 width: width * 0.75,
-                height: height * 0.1,
+                // height: height * 0.1,
+               
                 //  backgroundColor: 'yellow',
                 textAlign: 'center',
-                fontSize: 30,
+                fontSize: 18,
                 fontWeight: 'bold',
                 color: 'red',
               }}>
@@ -353,8 +355,8 @@ function UserProfile(props) {
             // backgroundColor: 'pink',
             alignSelf: 'center',
             borderBottomColor: 'black',
-            borderRadius: 25,
-            backgroundColor:'#fff',
+            // borderRadius: 25,
+            backgroundColor: '#F0F4C3',
             // borderWidth: 5,
             flexDirection: 'column',
           }}>
@@ -366,7 +368,7 @@ function UserProfile(props) {
               height: height * 0.03,
               // backgroundColor: 'white',
               fontWeight: 'bold',
-              fontSize: 20,
+              fontSize: 16,
             }}>
             Details :
           </Text>
@@ -490,7 +492,7 @@ function UserProfile(props) {
               height: height * 0.06,
               // backgroundColor: 'white',
               fontWeight: 'bold',
-              fontSize: 40,
+              fontSize: 30,
               // color:'green'
             }}>
             Want to approach :
