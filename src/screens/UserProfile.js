@@ -148,6 +148,25 @@ function UserProfile(props) {
     }
   };
 
+  const blockUser = ()  => {
+    Alert.alert("Block","Are you sure want to block " + data.userName + " ?" ,  [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "OK", onPress: () => {
+        firebaseFireStore().collection('users').doc(firebaseAuth().currentUser.uid).update({
+          ...user, blocks: [...user.blocks, data.id]
+        }).then((res) => {
+          props.navigation.goBack()
+        })
+      } }
+    ])
+   
+    
+  }
+
   React.useEffect(() => {
     firebaseFireStore()
       .collection('users')
@@ -177,7 +196,7 @@ function UserProfile(props) {
         </View>
         <View
           style={{
-            width: width * 0.8,
+            width: width * 0.7,
             alignItems: 'center',
             justifyContent: 'center',
           }}>
@@ -190,6 +209,13 @@ function UserProfile(props) {
             }}>
             Profile
           </Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={{justifyContent: 'center'}}
+            onPress={() => blockUser()}>
+            <EntypoIcon name="block" style={{fontSize: height * 0.05}} />
+          </TouchableOpacity>
         </View>
       </View>
       <View

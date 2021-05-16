@@ -76,24 +76,43 @@ const Details = props => {
       <TouchableOpacity
         style={styles.item}
         onPress={() => props.navigation.navigate('UserProfile', {data: item})}>
-        {item.image.length ? (
-          <Image style={{height: 105, width: 115, borderRadius: 20}} source={{uri: item.image}} />
-        ) : (
-          getImage(item.gender)
-        )}
-        {/* <Image style={{height: 105, width: 115}} source={item.image} /> */}
-        <View style={styles.viewType}>
-          <Text style={styles.info}>Name:</Text>
-          <Text style={styles.title}>{item.userName}</Text>
-          <View style={styles.line}></View>
-          <Text style={styles.info}>Age:</Text>
-          <Text style={styles.ageType}>{item.age}</Text>
-          <View style={styles.line}></View>
+        <View
+          style={{
+            marginLeft: 5,
+            width: width * 0.87,
+            height: height * 0.17,
+            backgroundColor: 'rgba(255, 205, 210, 0.7)',
+            alignSelf: 'center',
+            flexDirection:'row',
+            // justifyContent:'center'
+            alignItems:'center',
+            borderRadius: 5,
+            borderBottomColor:'#e91e63',
+            borderBottomWidth: 5
+          }}>
+          {item.image.length ? (
+            <Image
+              style={{marginLeft: 3, height: 105, width: 110, borderRadius: 20}}
+              source={{uri: item.image}}
+            />
+          ) : (
+            getImage(item.gender)
+          )}
+
+          <View style={styles.viewType}>
+            <Text style={styles.info}>Name:</Text>
+            <Text style={styles.title}>{item.userName}</Text>
+            <View style={styles.line}></View>
+            <Text style={styles.info}>Age:</Text>
+            <Text style={styles.ageType}>{item.age}</Text>
+            <View style={styles.line}></View>
+          </View>
         </View>
       </TouchableOpacity>
     );
   };
 
+  // console.log( users.filter((e) => loggedInUser  && Array.isArray(loggedInUser.blocks) && !loggedInUser.blocks.includes(e.id) ) ,'loginuser')
   return (
     <ImageBackground
       source={require('../assets/Dbk.jpeg')}
@@ -126,7 +145,7 @@ const Details = props => {
               fontWeight: 'bold',
               color: 'black',
             }}>
-            Profile
+            All Users
           </Text>
         </View>
       </View>
@@ -135,6 +154,7 @@ const Details = props => {
           data={
             users.length &&
             users.filter(e => e.id !== firebaseAuth().currentUser.uid)
+            .filter((e) => loggedInUser  && Array.isArray(loggedInUser.blocks) && !loggedInUser.blocks.includes(e.id))
           }
           renderItem={Data}
           keyExtractor={(item, index) => index.toString()}
@@ -149,17 +169,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: '#DCEDC8',
+    backgroundColor: '#F0F4C3',
     padding: 5,
     marginVertical: 8,
     marginHorizontal: 15,
     height: height * 0.2,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 20,
-    borderWidth: 5,
+    borderRadius: 5,
+    // borderWidth: 5,
     shadowColor: 'black',
-    shadowOffset: {width: 10, height: 10},
+    shadowOffset: {width: 5, height: 10},
     shadowOpacity: 5,
     elevation: 3,
     shadowRadius: 5,
@@ -168,19 +188,19 @@ const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     width: width * 0.56,
     height: height * 0.04,
-    fontSize: 28,
+    fontSize: 16,
     textAlign: 'center',
     color: 'green',
   },
   viewType: {
     marginLeft: 5,
     // backgroundColor: 'white',
-    width: width * 0.56,
+    width: width * 0.54,
     height: height * 0.14,
   },
   info: {
     marginTop: 2,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: 'bold',
     padding: 1,
     color: 'red',
@@ -196,7 +216,7 @@ const styles = StyleSheet.create({
     // backgroundColor: 'pink',
     width: width * 0.56,
     height: height * 0.04,
-    fontSize: 28,
+    fontSize: 16,
     textAlign: 'center',
   },
 });

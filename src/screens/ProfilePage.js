@@ -398,7 +398,7 @@ function ProfilePage(props) {
         </View>
         <View
           style={{
-            marginTop: 20,
+            marginTop: 5,
             width: width * 0.95,
             height: height * 0.42,
             backgroundColor: 'rgba(220, 231, 117, 0.3)',
@@ -409,7 +409,7 @@ function ProfilePage(props) {
           }}>
           <View
             style={{
-              marginTop: 10,
+              marginTop: 5,
               width: width * 0.9,
               height: height * 0.2,
               //  backgroundColor: 'white',
@@ -470,7 +470,7 @@ function ProfilePage(props) {
             </View>
             <View
               style={{
-                marginLeft: 10,
+                marginLeft: 5,
                 width: width * 0.42,
                 justifyContent:'center',
                 height: height * 0.12,
@@ -518,7 +518,7 @@ function ProfilePage(props) {
           </View>
           <View
             style={{
-              marginTop: 15,
+              marginTop: 5,
               width: width * 0.9,
               height: height * 0.11,
               // backgroundColor: 'white',
@@ -629,7 +629,7 @@ function ProfilePage(props) {
             <View
               style={{
                 width: width,
-                height: height * 0.2,
+                height: height * 0.1,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>

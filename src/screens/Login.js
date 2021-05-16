@@ -125,10 +125,11 @@ function LoginPage(props) {
         <View
           style={{
             width,
-            height: height * 0.1,
-            // backgroundColor: 'pink',
+            height: height * 0.07,
+            //  backgroundColor: 'white',
             alignContent: 'center',
-            marginTop: height * 0.03,
+            alignItems: 'center',
+            marginTop: height * 0.044,
             flexDirection: 'row',
           }}>
           <Text
@@ -138,36 +139,17 @@ function LoginPage(props) {
               alignSelf: 'flex-start',
               textAlign: 'left',
               fontWeight: 'bold',
-              fontSize: 50,
+              fontSize: 35,
+              color: '#e91e63',
+              // backgroundColor:'pink'
             }}>
             Login
           </Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate('Signup')}>
-            <View
-              style={{
-                width: width * 0.62,
-                alignItems: 'center',
-                height: height * 0.1,
-                justifyContent: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'black',
-                  alignSelf: 'flex-end',
-                  textAlign: 'right',
-                  fontWeight: 'bold',
-                  fontSize: 35,
-                  color: 'gray',
-                }}>
-                Sign Up
-              </Text>
-            </View>
-          </TouchableOpacity>
         </View>
         <View
           style={{
             marginTop: height * 0.015,
-            width: width * 0.55,
+            width: width * 0.8,
             height: height * 0.24,
             // backgroundColor: 'pink',
             alignSelf: 'center',
@@ -182,10 +164,10 @@ function LoginPage(props) {
               transform: [{translateX: shakeAnimation}],
             }}>
             <Image
-              source={require('../assets/hrtt.png')}
+              source={require('../assets/phrt.png')}
               style={{
-                width: width * 0.5,
-                height: height * 0.24,
+                width: width * 0.56,
+                height: height * 0.25,
                 alignSelf: 'center',
               }}
             />
@@ -200,35 +182,38 @@ function LoginPage(props) {
             alignSelf: 'center',
             borderTopColor: 'black',
             alignItems: 'center',
+            // justifyContent:'center',
             borderTopWidth: 10,
-            borderBottomColor: 'black',
+            borderTopColor: '#e91e63',
+            borderBottomColor: '#e91e63',
             borderBottomWidth: 10,
           }}>
           <View
             style={{
-              marginTop: 30,
+              marginTop: 10,
               width: width * 0.8,
               height: height * 0.09,
-              // backgroundColor: 'pink',
+              backgroundColor: '#F0F4C3',
               alignSelf: 'center',
               justifyContent: 'center',
               alignItems: 'center',
-              borderBottomWidth: 5,
-              borderBottomColor: 'black',
-              borderLeftWidth: 5,
-              borderLeftColor: 'black',
-              borderRightWidth: 5,
-              borderRightColor: 'black',
-              borderRadius: 20,
+              shadowColor: 'black',
+              shadowOffset: {width: 3, height: 8},
+              shadowOpacity: 4,
+              elevation: 3,
+              borderRadius: 2,
             }}>
             <TextInput
               style={{
                 marginTop: 1,
                 alignSelf: 'center',
-                width: width * 0.7,
+                width: width * 0.75,
                 height: height * 0.07,
-                borderBottomColor: '#F0F4',
+                // borderBottomColor: '#F0F4',
+                borderBottomColor: '#e91e63',
+                backgroundColor: 'rgba(255, 205, 210, 0.4)',
                 borderBottomWidth: 4,
+                borderRadius: 2,
               }}
               onChangeText={text => setLoginInfo({...loginInfo, email: text})}
               value={loginInfo.email}
@@ -241,26 +226,28 @@ function LoginPage(props) {
               marginTop: 20,
               width: width * 0.8,
               height: height * 0.09,
-              // backgroundColor: 'pink',
+              backgroundColor: '#F0F4C3',
               alignSelf: 'center',
               justifyContent: 'center',
-              borderBottomWidth: 5,
-              borderBottomColor: 'black',
-              borderLeftWidth: 5,
-              borderLeftColor: 'black',
-              borderRightWidth: 5,
-              borderRightColor: 'black',
-              borderRadius: 20,
+              alignItems: 'center',
+              shadowColor: 'black',
+              shadowOffset: {width: 3, height: 8},
+              shadowOpacity: 4,
+              elevation: 3,
+              borderRadius: 2,
             }}>
             <TextInput
               secureTextEntry
               style={{
                 marginTop: 1,
                 alignSelf: 'center',
-                width: width * 0.7,
+                width: width * 0.75,
                 height: height * 0.07,
-                borderBottomColor: '#F0F4',
+                // borderBottomColor: '#F0F4',
+                borderBottomColor: '#e91e63',
+                backgroundColor: 'rgba(255, 205, 210, 0.4)',
                 borderBottomWidth: 4,
+                borderRadius: 2,
               }}
               onChangeText={text =>
                 setLoginInfo({...loginInfo, password: text})
@@ -269,6 +256,47 @@ function LoginPage(props) {
               placeholder="Enter Your Password"
               placeholderTextColor="black"
             />
+          </View>
+          <View
+            style={{
+              marginTop: 10,
+              width: width * 0.8,
+              height: height * 0.08,
+              alignSelf: 'center',
+              alignItems: 'center',
+              //  backgroundColor:'pink',
+              flexDirection: 'row',
+            }}>
+            <Text
+              style={{
+                width: width * 0.47,
+                height: height * 0.03,
+                // textAlign: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+                //  backgroundColor:'yellow',
+                fontSize: 16,
+                fontWeight: 'bold',
+                color: '#e91e63',
+              }}>
+              Don't have an account?
+            </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate('Signup')}>
+              <Text
+                style={{
+                  width: width * 0.3,
+                  height: height * 0.047,
+                  textAlign: 'center',
+                  // backgroundColor:'yellow',
+                  fontSize: 27,
+                  fontWeight: 'bold',
+                  color: '#e91e63',
+                  textDecorationLine: 'underline'
+                }}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -288,20 +316,23 @@ function LoginPage(props) {
             style={{
               //   marginLeft: 1,
               padding: 10,
-              backgroundColor: '#F0F4C3',
+              backgroundColor: '#e91e63',
               height: height * 0.07,
               width: width * 0.85,
               alignItems: 'center',
               justifyContent: 'center',
               borderRadius: height * 0.04,
-              borderWidth: 2,
+              shadowColor: 'black',
+              shadowOpacity: 3,
+              shadowOffset: {width: 3, height: 8},
+              elevation: 3,
             }}>
             <Text
               style={{
                 textAlign: 'center',
                 fontSize: height * 0.03,
                 fontWeight: 'bold',
-                color: 'black',
+                color: 'white',
               }}>
               LOG IN
             </Text>
