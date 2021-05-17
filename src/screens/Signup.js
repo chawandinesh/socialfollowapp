@@ -15,7 +15,7 @@ import firebaseAuth from '@react-native-firebase/auth';
 import firebaseFirestore from '@react-native-firebase/firestore';
 import Toast from 'react-native-toast-message';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Icon} from 'native-base';
+import {Icon, Spinner} from 'native-base';
 const {width, height} = Dimensions.get('window');
 function Signup(props) {
   const [loading, setLoading] = useState(false);
@@ -106,7 +106,7 @@ function Signup(props) {
               caste: '',
               weight: '',
               interests: '',
-              blocks:[],
+              blocks: [],
               userActions: {
                 likes: [],
                 disLikes: [],
@@ -312,21 +312,21 @@ function Signup(props) {
                 placeholderTextColor="black"
               />
             </View>
-            {loading ? (
+            {/* {loading ? (
               <Animated.View
                 style={{
                   transform: [{translateX: shakeAnimation}],
                   position: 'absolute',
-                  top: height * 0.3,
+                  top: height * 0.1,
                   left: width * 0.3,
-                  zIndex: 10,
+                  zIndex: 1000,
                 }}>
                 <Image
                   source={require('../assets/hrtt.png')}
                   style={{height: height * 0.12, width: height * 0.13}}
                 />
               </Animated.View>
-            ) : null}
+            ) : null} */}
             <View
               style={{
                 marginTop: 20,
@@ -496,15 +496,19 @@ function Signup(props) {
                 shadowOffset: {width: 3, height: 8},
                 elevation: 3,
               }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  fontSize: height * 0.03,
-                  fontWeight: 'bold',
-                  color: 'white',
-                }}>
-                SIGN UP
-              </Text>
+              {loading ? (
+                <Spinner />
+              ) : (
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: height * 0.03,
+                    fontWeight: 'bold',
+                    color: 'white',
+                  }}>
+                  SIGN UP
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
           <Toast ref={ref => Toast.setRef(ref)} />

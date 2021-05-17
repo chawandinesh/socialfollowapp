@@ -29,8 +29,7 @@ export default function DrawerContent(props) {
       firebaseFireStore()
         .collection('users')
         .doc(firebaseAuth().currentUser.uid)
-        .get()
-        .then(res => {
+        .onSnapshot(res => {
           setLoggedInUser({...res.data(), id: res.id});
         });
     } catch (err) {}
@@ -41,7 +40,7 @@ export default function DrawerContent(props) {
 
   const image = null;
   return (
-    <DrawerContentScrollView {...props} style={{width: width * 0.5}}  >
+    <DrawerContentScrollView {...props} style={{width: width * 0.5}}>
       <ImageBackground
         source={require('../assets/bg2.jpg')}
         style={styles.drawerContainer}>
@@ -73,7 +72,7 @@ export default function DrawerContent(props) {
                   fontSize: height * 0.03,
                   fontWeight: 'bold',
                   textAlign: 'center',
-                  color:'#fff'
+                  color: '#fff',
                 }}>
                 {loggedInUser.userName}
               </Text>
@@ -83,7 +82,7 @@ export default function DrawerContent(props) {
                 borderTopColor: '#e91e63',
                 backgroundColor: 'rgba(255,255,255,0.2)',
                 width: width * 0.4,
-                alignSelf:'center',
+                alignSelf: 'center',
                 alignItems: 'center',
                 elevation: 2,
                 shadowColor: '#000',
@@ -113,7 +112,7 @@ export default function DrawerContent(props) {
                 borderTopColor: '#e91e63',
                 backgroundColor: 'rgba(255,255,255,0.2)',
                 width: width * 0.4,
-                alignSelf:'center',
+                alignSelf: 'center',
                 alignItems: 'center',
                 elevation: 2,
                 shadowColor: '#000',
@@ -148,7 +147,7 @@ export default function DrawerContent(props) {
                 borderTopColor: '#e91e63',
                 backgroundColor: 'rgba(255,255,255,0.2)',
                 width: width * 0.4,
-                alignSelf:'center',
+                alignSelf: 'center',
                 alignItems: 'center',
                 elevation: 2,
                 shadowColor: '#000',
@@ -183,7 +182,7 @@ export default function DrawerContent(props) {
                 borderTopColor: '#e91e63',
                 backgroundColor: 'rgba(255,255,255,0.2)',
                 width: width * 0.4,
-                alignSelf:'center',
+                alignSelf: 'center',
                 alignItems: 'center',
                 elevation: 2,
                 shadowColor: '#000',
@@ -219,11 +218,11 @@ export default function DrawerContent(props) {
             style={styles.logoutBtn}
             onPress={() => handleLogout()}>
             <Text style={styles.logoutText}>Logout</Text>
-               <Icon
-                name="log-out"
-                type="entype"
-                style={{color: 'rgba(255,255,255,0.5)', paddingLeft: 10}}
-              />
+            <Icon
+              name="log-out"
+              type="entype"
+              style={{color: 'rgba(255,255,255,0.5)', paddingLeft: 10}}
+            />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -261,7 +260,7 @@ const styles = StyleSheet.create({
     width: width * 0.5,
     alignItems: 'center',
     backgroundColor: '#e91e63',
-    flexDirection:'row',
+    flexDirection: 'row',
     height: height * 0.06,
     justifyContent: 'center',
   },

@@ -156,6 +156,7 @@ function LoginPage(props) {
             // backgroundColor: 'pink',
             alignSelf: 'center',
             justifyContent: 'center',
+            alignItems:'center',
             shadowColor: '#F0F4C3',
             shadowOffset: {width: 20, height: 10},
             shadowOpacity: 10,
@@ -168,8 +169,8 @@ function LoginPage(props) {
             <Image
               source={require('../assets/phrt.png')}
               style={{
-                width: width * 0.56,
-                height: height * 0.25,
+                width: width * 0.31,
+                height: height * 0.15,
                 alignSelf: 'center',
               }}
             />

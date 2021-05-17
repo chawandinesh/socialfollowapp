@@ -10,15 +10,15 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {useIsFocused} from '@react-navigation/native'
+import {useIsFocused} from '@react-navigation/native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import firebaseFirestore from '@react-native-firebase/firestore';
 import firebaseAuth from '@react-native-firebase/auth';
 const {height, width} = Dimensions.get('window');
 
 const Details = props => {
-  const isFocused = useIsFocused()
-  const control = async() => {}
+  const isFocused = useIsFocused();
+  const control = async () => {};
   const [loggedInUser, setLoggedInUser] = useState({});
   const [users, setUsers] = useState({});
   /**
@@ -50,17 +50,21 @@ const Details = props => {
    * use effect
    */
   useEffect(() => {
-    control()
-   getAsyncData();
-    
-  }, [isFocused,props]);
+    control();
+    getAsyncData();
+  }, [isFocused, props]);
 
   const getImage = gender => {
     switch (gender) {
       case 'male':
         return (
           <Image
-            style={{height: height * 0.095, width: height * 0.095, borderWidth:2, borderRadius: height * 0.05}}
+            style={{
+              height: height * 0.095,
+              width: height * 0.095,
+              borderWidth: 2,
+              borderRadius: height * 0.05,
+            }}
             source={require('../assets/prf.png')}
           />
         );
@@ -68,7 +72,13 @@ const Details = props => {
       case 'female':
         return (
           <Image
-          style={{height: height * 0.1, width: height * 0.1, borderWidth:2, borderRadius: height * 0.05}}            source={require('../assets/fml.png')}
+            style={{
+              height: height * 0.1,
+              width: height * 0.1,
+              borderWidth: 2,
+              borderRadius: height * 0.05,
+            }}
+            source={require('../assets/fml.png')}
           />
         );
 
@@ -89,27 +99,38 @@ const Details = props => {
             height: height * 0.12,
             backgroundColor: 'rgba(255, 205, 210, 0.7)',
             alignSelf: 'center',
-            flexDirection:'row',
-            justifyContent:'space-between',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             // justifyContent:'center'
-            alignItems:'center',
+            alignItems: 'center',
             borderRadius: 5,
             // borderBottomColor:'#e91e63',
             // borderBottomWidth: 5
           }}>
-
           {item.image.length ? (
             <Image
-              style={{ height: height * 0.1, width: height * 0.1,borderWidth:2, borderRadius: height * 0.05}}
+              style={{
+                height: height * 0.1,
+                width: height * 0.1,
+                borderWidth: 2,
+                borderRadius: height * 0.05,
+              }}
               source={{uri: item.image}}
             />
           ) : (
-            <View style={{borderWidth:2,height: height * 0.1, width: height * 0.1, borderRadius: height * 0.05, alignItems:'center', justifyContent:'center'}}>
-
-           { getImage(item.gender)}
+            <View
+              style={{
+                borderWidth: 2,
+                height: height * 0.1,
+                width: height * 0.1,
+                borderRadius: height * 0.05,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              {getImage(item.gender)}
             </View>
           )}
-            {/* </View> */}
+          {/* </View> */}
 
           <View style={styles.viewType}>
             <Text style={styles.info}>Name:</Text>
@@ -169,16 +190,52 @@ const Details = props => {
         </View>
       </View>
       <View style={{height: height * 0.85}}>
-        
-        <FlatList
-          data={
-            users.length &&
-            users.filter(e => e.id !== loggedInUser.id)
-            .filter((e) => loggedInUser  && Array.isArray(loggedInUser.blocks) && !loggedInUser.blocks.includes(e.id))
-          }
-          renderItem={Data}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        {users.length &&
+        users
+          .filter(e => e.id !== loggedInUser.id)
+          .filter(
+            e =>
+              loggedInUser &&
+              Array.isArray(loggedInUser.blocks) &&
+              !loggedInUser.blocks.includes(e.id),
+          ).length ? (
+          <FlatList
+            data={
+              users.length &&
+              users
+                .filter(e => e.id !== loggedInUser.id)
+                .filter(
+                  e =>
+                    loggedInUser &&
+                    Array.isArray(loggedInUser.blocks) &&
+                    !loggedInUser.blocks.includes(e.id),
+                )
+            }
+            renderItem={Data}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        ) : (
+          <View
+            style={{
+              height: height * 0.8,
+              width: width,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <View
+              style={{
+                padding: 10,
+                backgroundColor: '#fff',
+                borderBottomWidth: 4,
+                borderBottomColor: '#e91e63',
+              }}>
+              <Text style={{fontWeight: 'bold', fontSize: height * 0.03}}>
+                {' '}
+                No Users Found{' '}
+              </Text>
+            </View>
+          </View>
+        )}
       </View>
     </ImageBackground>
   );
@@ -198,7 +255,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     borderBottomWidth: 5,
-    borderBottomColor:'#e91e63',
+    borderBottomColor: '#e91e63',
     shadowColor: 'black',
     shadowOffset: {width: 5, height: 10},
     shadowOpacity: 5,
@@ -208,7 +265,7 @@ const styles = StyleSheet.create({
   title: {
     // backgroundColor: 'pink',
     width: width * 0.5,
-  //  marginLeft: width * 0.14,
+    //  marginLeft: width * 0.14,
     // height: height * 0.04,
     fontSize: 16,
 

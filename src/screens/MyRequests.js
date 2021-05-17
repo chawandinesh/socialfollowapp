@@ -17,9 +17,8 @@ import AntIcon from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {DatingAppContext} from '../context/Context';
-import { Icon } from 'native-base';
+import {Icon} from 'native-base';
 const {height, width} = Dimensions.get('window');
-
 
 const AllDetails = props => {
   const [filterUserType, setFilterUserType] = useState('ShortListed');
@@ -44,40 +43,42 @@ const AllDetails = props => {
   };
 
   const getUsers = () => {
-
-
     // console.log(profileInfo.userActions.likes, users.map((e) => e.id))
     switch (filterUserType) {
       case 'ShortListed':
-        return users.filter((e) => profileInfo.userActions.likes.includes(e.id))
-        // return profileInfo && users.filter((e) => e.userActions )
-        // return users.filter((e) =>profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.likes.include(e.id))
-        // return users.filter(
-        //   e => profileInfo && profileInfo.likes.includes(e.id),
-        // );
+        return users.filter(e => profileInfo.userActions.likes.includes(e.id));
+      // return profileInfo && users.filter((e) => e.userActions )
+      // return users.filter((e) =>profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.likes.include(e.id))
+      // return users.filter(
+      //   e => profileInfo && profileInfo.likes.includes(e.id),
+      // );
       case 'Approach':
-        return users.filter((e) => profileInfo.userActions.approach.includes(e.id))
+        return users.filter(e =>
+          profileInfo.userActions.approach.includes(e.id),
+        );
 
-        // return users.filter((e) => profileInfo.userActions.likes.includes(e.id))
+      // return users.filter((e) => profileInfo.userActions.likes.includes(e.id))
 
-        // return users.filter((e) => profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.approach.include(e.id))
+      // return users.filter((e) => profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.approach.include(e.id))
 
-        // return users.filter(
-        //   e => profileInfo && profileInfo.approach.includes(e.id),
-        // );
+      // return users.filter(
+      //   e => profileInfo && profileInfo.approach.includes(e.id),
+      // );
       case 'Rejected':
         // return users.filter((e) => profileInfo.hasOwnProperty('userActions') && profileInfo.userActions.disLikes.include(e.id))
-        return users.filter((e) => profileInfo.userActions.disLikes.includes(e.id))
+        return users.filter(e =>
+          profileInfo.userActions.disLikes.includes(e.id),
+        );
 
-        // return users.filter(
-        //   e => profileInfo && profileInfo.disLikes.includes(e.id),
-        // );
+      // return users.filter(
+      //   e => profileInfo && profileInfo.disLikes.includes(e.id),
+      // );
       default:
         return [];
     }
   };
 
-  console.log(users,profileInfo,'users...')
+  console.log(users, profileInfo, 'users...');
   React.useEffect(() => {
     firebaseFireStore()
       .collection('users')
@@ -100,7 +101,12 @@ const AllDetails = props => {
       case 'male':
         return (
           <Image
-            style={{height: height * 0.095, width: height * 0.095, borderWidth:2, borderRadius: height * 0.05}}
+            style={{
+              height: height * 0.095,
+              width: height * 0.095,
+              borderWidth: 2,
+              borderRadius: height * 0.05,
+            }}
             source={require('../assets/prf.png')}
           />
         );
@@ -108,7 +114,13 @@ const AllDetails = props => {
       case 'female':
         return (
           <Image
-          style={{height: height * 0.1, width: height * 0.1, borderWidth:2, borderRadius: height * 0.05}}            source={require('../assets/fml.png')}
+            style={{
+              height: height * 0.1,
+              width: height * 0.1,
+              borderWidth: 2,
+              borderRadius: height * 0.05,
+            }}
+            source={require('../assets/fml.png')}
           />
         );
 
@@ -128,27 +140,38 @@ const AllDetails = props => {
             height: height * 0.12,
             backgroundColor: 'rgba(255, 205, 210, 0.7)',
             alignSelf: 'center',
-            flexDirection:'row',
-            justifyContent:'space-between',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             // justifyContent:'center'
-            alignItems:'center',
+            alignItems: 'center',
             borderRadius: 5,
             // borderBottomColor:'#e91e63',
             // borderBottomWidth: 5
           }}>
-
           {item.image.length ? (
             <Image
-              style={{ height: height * 0.1, width: height * 0.1,borderWidth:2, borderRadius: height * 0.05}}
+              style={{
+                height: height * 0.1,
+                width: height * 0.1,
+                borderWidth: 2,
+                borderRadius: height * 0.05,
+              }}
               source={{uri: item.image}}
             />
           ) : (
-            <View style={{borderWidth:2,height: height * 0.1, width: height * 0.1, borderRadius: height * 0.05, alignItems:'center', justifyContent:'center'}}>
-
-           { getImage(item.gender)}
+            <View
+              style={{
+                borderWidth: 2,
+                height: height * 0.1,
+                width: height * 0.1,
+                borderRadius: height * 0.05,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              {getImage(item.gender)}
             </View>
           )}
-            {/* </View> */}
+          {/* </View> */}
 
           <View style={styles.viewType}>
             <Text style={styles.info}>Name:</Text>
@@ -177,21 +200,21 @@ const AllDetails = props => {
           flexDirection: 'row',
         }}>
         <View>
-              <TouchableOpacity
-                style={{justifyContent: 'center', padding: 5}}
-                onPress={() => props.navigation.openDrawer()}>
-                <Icon
-                  name="menu"
-                  style={{fontSize: height * 0.05, color: 'black'}}
-                />
-              </TouchableOpacity>
-            </View>
+          <TouchableOpacity
+            style={{justifyContent: 'center', padding: 5}}
+            onPress={() => props.navigation.openDrawer()}>
+            <Icon
+              name="menu"
+              style={{fontSize: height * 0.05, color: 'black'}}
+            />
+          </TouchableOpacity>
+        </View>
         <View>
           <TouchableOpacity
             style={{justifyContent: 'center', padding: 5}}
             onPress={() => props.navigation.navigate('Profile')}>
             {!profileInfo.image ? (
-              <Icon name="user" type="FontAwesome" style={{marginRight: 10}}  />
+              <Icon name="user" type="FontAwesome" style={{marginRight: 10}} />
             ) : (
               <Image
                 source={{uri: profileInfo.image}}
@@ -210,9 +233,9 @@ const AllDetails = props => {
           marginTop: 15,
           width: width * 0.97,
           height: height * 0.08,
-          backgroundColor: '#DCEDC8',
-          borderRadius: 20,
-          borderWidth: 3,
+          backgroundColor: 'rgba(255, 205, 210, 0.4)',
+          borderBottomWidth: 4,
+          borderBottomColor: '#e91e63',
           alignSelf: 'center',
           flexDirection: 'row',
           alignItems: 'center',
@@ -225,7 +248,7 @@ const AllDetails = props => {
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: getConfirm('Approach') ? 'white' : null,
-            borderRadius: getConfirm('Approach') ? 20 : 0,
+            // borderRadius: getConfirm('Approach') ? 20 : 0,
           }}>
           <Text
             style={{
@@ -247,7 +270,7 @@ const AllDetails = props => {
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: getConfirm('ShortListed') ? 'white' : null,
-            borderRadius: getConfirm('ShortListed') ? 20 : 0,
+            // borderRadius: getConfirm('ShortListed') ? 20 : 0,
           }}>
           <Text
             style={{
@@ -269,7 +292,7 @@ const AllDetails = props => {
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: getConfirm('Rejected') ? 'white' : null,
-            borderRadius: getConfirm('Rejected') ? 20 : 0,
+            // borderRadius: getConfirm('Rejected') ? 20 : 0,
           }}>
           <Text
             style={{
@@ -294,22 +317,21 @@ const AllDetails = props => {
         ) : (
           <View
             style={{
-              height: height * 0.7,
+              height: height * 0.8,
               width: width,
-              alignItems: 'center',
               justifyContent: 'center',
+              alignItems: 'center',
             }}>
             <View
               style={{
-                height: height * 0.2,
-                width: width * 0.7,
-                borderRadius: height * 0.2,
-                borderWidth: 3,
-                alignItems: 'center',
-                justifyContent: 'center',
+                padding: 10,
+                backgroundColor: '#fff',
+                borderBottomWidth: 4,
+                borderBottomColor: '#e91e63',
               }}>
-              <Text style={{fontSize: height * 0.03, fontWeight: 'bold'}}>
-                No users Found
+              <Text style={{fontWeight: 'bold', fontSize: height * 0.03}}>
+                {' '}
+                No Users Found{' '}
               </Text>
             </View>
           </View>
@@ -333,7 +355,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     borderBottomWidth: 5,
-    borderBottomColor:'#e91e63',
+    borderBottomColor: '#e91e63',
     shadowColor: 'black',
     shadowOffset: {width: 5, height: 10},
     shadowOpacity: 5,
@@ -343,7 +365,7 @@ const styles = StyleSheet.create({
   title: {
     // backgroundColor: 'pink',
     width: width * 0.5,
-  //  marginLeft: width * 0.14,
+    //  marginLeft: width * 0.14,
     // height: height * 0.04,
     fontSize: 16,
 
