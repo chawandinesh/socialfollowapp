@@ -169,8 +169,8 @@ function LoginPage(props) {
             <Image
               source={require('../assets/phrt.png')}
               style={{
-                width: width * 0.31,
-                height: height * 0.15,
+                width: width * 0.45,
+                height: height * 0.20,
                 alignSelf: 'center',
               }}
             />
