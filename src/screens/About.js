@@ -42,7 +42,7 @@ export default function AllDetails(props) {
             color: '#ebe459',
             textAlign: 'center',
           }}>
-          This is simple, amazing and ads free app for functions.
+          This is simple, amazing and ads free app for functions to help you to find your match.
         </Text>
         <Text
           style={{
@@ -52,7 +52,7 @@ export default function AllDetails(props) {
             textAlign: 'center',
             paddingTop: height * 0.04,
           }}>
-          In this app, User can see bill and transations to the particular department bills
+          In this app, You will get the details of the person and you can check their profile.
         </Text>
         <Text
           style={{
@@ -62,7 +62,7 @@ export default function AllDetails(props) {
             textAlign: 'center',
             paddingTop: height * 0.05,
           }}>
-          Also in this app, you can manage your function details.{'\n'}
+          On the basis of their profile you can choose to approach them or not.{'\n'}
         </Text>
         <Text
           style={{

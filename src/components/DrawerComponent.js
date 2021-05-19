@@ -95,6 +95,36 @@ export default function DrawerContent(props) {
                 paddingVertical: 10,
               }}
               onPress={() => {
+                props.navigation.navigate('Home');
+              }}>
+              <Icon name="user" type="FontAwesome" style={{color: '#fff'}} />
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: height * 0.023,
+                  fontWeight: 'bold',
+                }}>
+                Dashboard
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                borderTopColor: '#e91e63',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                width: width * 0.4,
+                alignSelf: 'center',
+                alignItems: 'center',
+                elevation: 2,
+                shadowColor: '#000',
+                shadowOffset: {
+                  width: 1,
+                  height: 1,
+                },
+                shadowRadius: 1,
+                shadowOpacity: 1,
+                paddingVertical: 10,
+              }}
+              onPress={() => {
                 props.navigation.navigate('Profile');
               }}>
               <Icon name="user" type="FontAwesome" style={{color: '#fff'}} />
@@ -233,14 +263,14 @@ export default function DrawerContent(props) {
 const styles = StyleSheet.create({
   drawerContainer: {height: height, width: width, marginTop: -10},
   profileImageContainer: {
-    height: height * 0.25,
+    height: height * 0.2,
     // marginBottom: 20,
     width: width * 0.5,
     justifyContent: 'center',
     alignItems: 'center',
   },
   drawerNavigationContainer: {
-    height: height * 0.7,
+    height: height * 0.6,
     justifyContent: 'space-between',
   },
   drawerItemsContainer: {
@@ -261,7 +291,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#e91e63',
     flexDirection: 'row',
-    height: height * 0.06,
+    height: height * 0.05,
+    marginTop: height * 0.05,
     justifyContent: 'center',
   },
   logoutText: {color: 'white', fontWeight: 'bold'},

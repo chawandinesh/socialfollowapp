@@ -210,6 +210,7 @@ const Details = props => {
                     Array.isArray(loggedInUser.blocks) &&
                     !loggedInUser.blocks.includes(e.id),
                 )
+                .filter((e) => e.gender !== loggedInUser.gender)
             }
             renderItem={Data}
             keyExtractor={(item, index) => index.toString()}

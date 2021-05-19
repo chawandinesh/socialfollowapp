@@ -298,10 +298,13 @@ function ProfilePage(props) {
                 placeholder="enter description"
                 numberOfLines={3}
                 multiline
+                placeholder="Add your details, likes,dislikes. etc,."
                 value={user.description}
                 onChangeText={text => setUser({...user, description: text})}
                 style={{
                   width: width * 0.8,
+                  alignItems:'center',
+                  justifyContent:'center',
                   height: height * 0.07,
                   borderRadius: height * 0.02,
                   alignSelf: 'center',
