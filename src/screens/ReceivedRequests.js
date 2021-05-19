@@ -17,6 +17,7 @@ import AntIcon from 'react-native-vector-icons/AntDesign';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import {DatingAppContext} from '../context/Context';
+import { Icon } from 'native-base';
 const {height, width} = Dimensions.get('window');
 const DATA = [
   {
@@ -140,15 +141,25 @@ const AllDetails = props => {
       });
   }, []);
 
+  const handleAccept = (item) => {
+
+    /**
+     * 
+     alert(item.id)
+     */
+    firebaseFireStore().collection("users").doc(firebaeAuth().currentUser.uid).update({
+      ...profileInfo,approach: profileInfo.approach.filter((e) => e !== item.id)
+    })
+  }
   const Data = ({item, index}) => {
     return (
-      <TouchableOpacity
+      <View
       style={styles.item}
       onPress={() => props.navigation.navigate('UserProfile', {data: item})}>
-      <View
+      <TouchableOpacity
         style={{
           marginLeft: 5,
-          width: width * 0.87,
+          width: width * 0.67,
           height: height * 0.12,
           backgroundColor: 'rgba(255, 205, 210, 0.7)',
           alignSelf: 'center',
@@ -193,8 +204,14 @@ const AllDetails = props => {
           <View style={styles.line}></View>
           <Text style={styles.ageType}>{item.age}</Text>
         </View>
+      </TouchableOpacity>
+      <View style={{justifyContent:'center', alignItems:'center', width: width * 0.2}}> 
+        <TouchableOpacity onPress={() => handleAccept(item)} style={{width: width * 0.2, alignItems:'center', justifyContent:'center',  height: height * 0.12, backgroundColor:'#89d485'}}>
+          <Text style={{color:'#fff', textAlign:'center'}}>Accept</Text>
+          <Icon name="check"  type="AntDesign" style={{color:'#fff'}}/>
+        </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
     );
   };
   return (
@@ -278,85 +295,7 @@ const AllDetails = props => {
           </Text>
         </View>
         </View>
-      {/* <View
-        style={{
-          marginTop: 15,
-          width: width * 0.97,
-          height: height * 0.08,
-          backgroundColor: '#DCEDC8',
-          borderRadius: 20,
-          borderWidth: 3,
-          alignSelf: 'center',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-        <TouchableOpacity
-          onPress={() => setFilterUserType('Approach')}
-          style={{
-            width: width * 0.31,
-            height: height * 0.06,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: getConfirm('Approach') ? 'white' : null,
-            borderRadius: getConfirm('Approach') ? 20 : 0,
-          }}>
-          <Text
-            style={{
-              width: width * 0.3,
-              height: height * 0.035,
-              textAlign: 'center',
-              color: 'black',
-              fontSize: 22,
-              fontWeight: 'bold',
-            }}>
-            Approach
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setFilterUserType('ShortListed')}
-          style={{
-            width: width * 0.31,
-            height: height * 0.06,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: getConfirm('ShortListed') ? 'white' : null,
-            borderRadius: getConfirm('ShortListed') ? 20 : 0,
-          }}>
-          <Text
-            style={{
-              width: width * 0.3,
-              height: height * 0.035,
-              textAlign: 'center',
-              color: 'black',
-              fontSize: 22,
-              fontWeight: 'bold',
-            }}>
-            Shortlised
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => setFilterUserType('Rejected')}
-          style={{
-            width: width * 0.31,
-            height: height * 0.06,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: getConfirm('Rejected') ? 'white' : null,
-            borderRadius: getConfirm('Rejected') ? 20 : 0,
-          }}>
-          <Text
-            style={{
-              width: width * 0.3,
-              height: height * 0.035,
-              textAlign: 'center',
-              color: 'black',
-              fontSize: 22,
-              fontWeight: 'bold',
-            }}>
-            Rejected
-          </Text>
-        </TouchableOpacity>
-      </View> */}
+ 
       <View style={{height: height * 0.75, marginTop: 15}}>
         {getUsers().length ? (
           <FlatList
